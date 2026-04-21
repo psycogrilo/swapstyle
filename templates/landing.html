@@ -17,7 +17,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
   <style>
-    /* ========== VARIABLES ========== */
+    /* ========== RESET & VARIABLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     :root {
       --bg: #FCF7F4;
       --surface: #FFFFFF;
@@ -31,29 +37,22 @@
       --plum: #3A1F2D;
       --success: #73B77A;
       --error: #C74867;
-      --shadow: 0 24px 80px rgba(36, 22, 30, 0.10);
+      --shadow: 0 24px 80px rgba(36,22,30,0.10);
       --radius-xl: 30px;
       --radius-lg: 20px;
       --radius-md: 14px;
-    }
-
-    /* ========== RESET ========== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
-      overflow-x: hidden;
       line-height: 1.6;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
     }
 
     a {
@@ -61,18 +60,10 @@
       color: inherit;
     }
 
-    button, input {
+    button {
+      cursor: pointer;
+      border: none;
       font-family: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
     }
 
     /* ========== NOTIFICATION ========== */
@@ -83,7 +74,7 @@
       background: white;
       border-radius: 16px;
       padding: 16px 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -109,99 +100,14 @@
       font-size: 24px;
     }
 
-    .notification.success i {
-      color: var(--success);
-    }
-
-    .notification.error i {
-      color: var(--error);
-    }
-
-    /* ========== MODAL ========== */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(36, 22, 30, 0.8);
-      backdrop-filter: blur(8px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal {
-      background: white;
-      border-radius: 32px;
-      max-width: 450px;
-      width: 100%;
-      padding: 40px;
-      position: relative;
-      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: var(--muted);
-      transition: color 0.2s;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-    }
-
-    .modal-close:hover {
-      color: var(--plum);
-      background: var(--surface-soft);
-    }
-
-    .modal h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      color: var(--plum);
-      margin-bottom: 8px;
-    }
-
-    .modal-subtitle {
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-
     /* ========== HEADER ========== */
     .header {
       position: sticky;
       top: 0;
       z-index: 50;
       backdrop-filter: blur(14px);
-      background: rgba(252, 247, 244, 0.75);
-      border-bottom: 1px solid rgba(238, 221, 228, 0.8);
+      background: rgba(252,247,244,0.75);
+      border-bottom: 1px solid rgba(238,221,228,0.8);
     }
 
     .nav {
@@ -227,67 +133,41 @@
 
     .nav-links {
       display: flex;
-      align-items: center;
       gap: 28px;
       color: var(--muted);
-      font-size: 0.96rem;
       font-weight: 500;
-    }
-
-    .nav-links a {
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
     }
 
     .nav-actions {
       display: flex;
-      align-items: center;
       gap: 12px;
     }
 
     /* ========== BUTTONS ========== */
     .btn {
-      border: none;
-      cursor: pointer;
-      transition: 0.22s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       font-weight: 700;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
+      transition: 0.2s;
     }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
+      color: white;
       padding: 14px 24px;
       border-radius: 999px;
-      box-shadow: 0 10px 24px rgba(212, 106, 132, 0.28);
+      box-shadow: 0 10px 24px rgba(212,106,132,0.28);
     }
 
     .btn-primary:hover {
-      box-shadow: 0 16px 30px rgba(212, 106, 132, 0.35);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(212,106,132,0.35);
     }
 
     .btn-outline {
-      background: #fff;
+      background: white;
       color: var(--plum);
       border: 1px solid var(--border);
       padding: 13px 22px;
@@ -300,65 +180,44 @@
 
     /* ========== HERO ========== */
     .hero {
-      position: relative;
       padding: 48px 0 76px;
-      overflow: hidden;
-    }
-
-    .hero:before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 15% 20%, rgba(212, 106, 132, 0.11), transparent 28%),
-                  radial-gradient(circle at 80% 20%, rgba(231, 182, 106, 0.10), transparent 24%),
-                  radial-gradient(circle at 85% 85%, rgba(212, 106, 132, 0.08), transparent 20%);
-      pointer-events: none;
     }
 
     .hero-grid {
-      position: relative;
-      z-index: 1;
       display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 42px;
       align-items: center;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: inline-block;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255,255,255,0.7);
       color: var(--primary-dark);
       border-radius: 999px;
       padding: 8px 14px;
       font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
       margin-bottom: 18px;
     }
 
     .hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.8rem, 6vw, 5rem);
-      line-height: 0.96;
-      letter-spacing: -0.04em;
+      line-height: 1;
       color: var(--plum);
       margin-bottom: 18px;
     }
 
-    .hero p.lead {
-      max-width: 620px;
-      font-size: 1.08rem;
-      line-height: 1.75;
+    .lead {
       color: var(--muted);
+      font-size: 1.08rem;
       margin-bottom: 28px;
     }
 
     .hero-actions {
       display: flex;
-      flex-wrap: wrap;
       gap: 14px;
       margin-bottom: 22px;
     }
@@ -370,7 +229,7 @@
     }
 
     .trust-chip {
-      background: #fff;
+      background: white;
       border: 1px solid var(--border);
       border-radius: 999px;
       padding: 10px 14px;
@@ -379,450 +238,121 @@
       font-weight: 600;
     }
 
-    /* ========== HERO CARD ========== */
+    /* ========== HERO CARD (FOTO MULHER ELEGANTE) ========== */
     .hero-card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.88));
-      border: 1px solid rgba(238, 221, 228, 0.9);
+      background: white;
       border-radius: 32px;
       box-shadow: var(--shadow);
-      padding: 22px;
-      position: relative;
+      padding: 20px;
     }
 
-    .floating-badge {
-      position: absolute;
-      top: -14px;
-      right: 22px;
-      background: var(--plum);
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      box-shadow: 0 12px 20px rgba(58, 31, 45, 0.20);
-    }
-
-    .app-shell {
-      background: #fff;
-      border: 1px solid #f0e5ea;
-      border-radius: 28px;
-      padding: 16px;
-    }
-
-    .app-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
-
-    .app-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--plum);
-    }
-
-    .mini-pill {
-      background: var(--surface-soft);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.72rem;
-      color: var(--primary-dark);
-      font-weight: 700;
-    }
-
-    .stylish-woman-photo {
+    .fashion-image {
       width: 100%;
-      height: 280px;
-      border-radius: 20px;
+      height: 380px;
+      border-radius: 24px;
       overflow: hidden;
       margin-bottom: 16px;
-      position: relative;
-      background: linear-gradient(135deg, #f5e6eb 0%, #e8d5dc 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
 
-    .stylish-woman-photo img {
+    .fashion-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    .photo-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(58, 31, 45, 0.8), transparent);
-      padding: 20px;
-      color: white;
-    }
-
-    .photo-overlay h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      margin-bottom: 4px;
-    }
-
-    .photo-overlay p {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    .swap-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .mini-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 12px;
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .mini-card strong {
       display: block;
-      color: var(--plum);
-      margin-bottom: 4px;
     }
 
-    /* ========== FEATURES ========== */
-    .section {
-      padding: 82px 0;
+    .image-caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
     }
 
-    .section-head {
-      text-align: center;
-      margin-bottom: 42px;
-    }
-
-    .section-head .overline {
-      color: var(--primary-dark);
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .section-head h2 {
+    .image-caption h3 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
       color: var(--plum);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 10px;
     }
 
-    .section-head p {
-      max-width: 700px;
-      margin: 0 auto;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 1rem;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .feature-card {
-      background: #fff;
+    .badge {
+      background: var(--surface-soft);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 26px;
-      box-shadow: 0 8px 24px rgba(36, 22, 30, 0.04);
-      transition: 0.22s ease;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      color: var(--primary-dark);
+      font-weight: 700;
     }
 
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 34px rgba(36, 22, 30, 0.08);
-    }
-
-    .feature-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #ffe9ef, #fff7ec);
-      font-size: 1.5rem;
-      margin-bottom: 16px;
-    }
-
-    .feature-card h3 {
-      font-size: 1.08rem;
-      font-weight: 800;
-      color: var(--plum);
-      margin-bottom: 8px;
-    }
-
-    .feature-card p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.95rem;
-    }
-
-    /* ========== HOW IT WORKS ========== */
-    .how-wrap {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .step-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .step-no {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--plum);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .step-card h4 {
-      color: var(--plum);
-      font-size: 1.08rem;
-      margin-bottom: 8px;
-      font-weight: 800;
-    }
-
-    .step-card p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.95rem;
-    }
-
-    /* ========== AUTH SECTION ========== */
+    /* ========== FORMULÁRIO ========== */
     .auth-section {
-      padding: 20px 0 90px;
+      padding: 40px 0 90px;
     }
 
     .auth-card {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid var(--border);
+      grid-template-columns: 1fr 1fr;
+      background: white;
       border-radius: 32px;
-      overflow: hidden;
       box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
     .auth-left {
       padding: 42px;
-      background: #fff;
     }
 
     .auth-right {
+      background: linear-gradient(135deg, #fff2f6, #fff9f0);
       padding: 34px;
-      background: linear-gradient(135deg, #fff2f6 0%, #fff9f0 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .auth-left .tiny {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--primary-dark);
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .auth-left h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.02;
-      color: var(--plum);
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
-
-    .auth-left .sub {
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 26px;
-      max-width: 580px;
-    }
-
-    .social-grid {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-
-    .social-btn {
-      width: 100%;
-      height: 56px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--plum);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-size: 0.97rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .social-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 28px rgba(36, 22, 30, 0.06);
-      background: var(--surface-soft);
-    }
-
-    .social-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    .divider {
-      position: relative;
-      text-align: center;
-      margin: 24px 0;
-    }
-
-    .divider:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .divider span {
-      position: relative;
-      background: #fff;
-      padding: 0 12px;
-      color: #9a8390;
-      font-size: 0.92rem;
     }
 
     .form-grid {
       display: grid;
-      gap: 14px;
-    }
-
-    .row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 16px;
     }
 
     .input-group label {
       display: block;
-      margin-bottom: 7px;
+      margin-bottom: 6px;
       color: var(--plum);
-      font-size: 0.84rem;
       font-weight: 700;
+      font-size: 0.84rem;
     }
 
     .input-group input {
       width: 100%;
-      height: 54px;
-      border-radius: 15px;
+      padding: 14px 16px;
       border: 1px solid var(--border);
-      background: #fff;
-      padding: 0 16px;
-      font-size: 0.96rem;
-      color: var(--text);
-      outline: none;
-      transition: 0.18s ease;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      background: white;
     }
 
     .input-group input:focus {
+      outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(212, 106, 132, 0.12);
-    }
-
-    .input-group input.error {
-      border-color: var(--error);
-    }
-
-    .terms {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-top: 4px;
-    }
-
-    .terms input {
-      margin-top: 3px;
-      accent-color: var(--primary);
-    }
-
-    .terms a {
-      color: var(--primary-dark);
-      font-weight: 600;
-    }
-
-    .terms a:hover {
-      text-decoration: underline;
+      box-shadow: 0 0 0 4px rgba(212,106,132,0.12);
     }
 
     .btn-create {
       width: 100%;
-      height: 58px;
-      border: none;
-      border-radius: 16px;
+      padding: 16px;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      font-size: 1rem;
+      color: white;
       font-weight: 800;
-      cursor: pointer;
-      margin-top: 4px;
-      box-shadow: 0 14px 26px rgba(212, 106, 132, 0.25);
-      transition: 0.2s ease;
-    }
-
-    .btn-create:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 32px rgba(212, 106, 132, 0.30);
+      font-size: 1rem;
+      border-radius: 16px;
+      margin-top: 8px;
     }
 
     .auth-foot {
-      margin-top: 14px;
+      margin-top: 16px;
       text-align: center;
       color: #9a8390;
-      font-size: 0.92rem;
     }
 
     .auth-foot a {
@@ -830,140 +360,7 @@
       font-weight: 700;
     }
 
-    .auth-foot a:hover {
-      text-decoration: underline;
-    }
-
-    /* ========== PREVIEW ========== */
-    .preview-phone {
-      width: min(340px, 100%);
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      box-shadow: 0 24px 60px rgba(36, 22, 30, 0.12);
-      padding: 16px;
-    }
-
-    .phone-bar {
-      width: 90px;
-      height: 6px;
-      border-radius: 999px;
-      background: #ead8df;
-      margin: 0 auto 16px;
-    }
-
-    .preview-card {
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      background: #fff;
-      margin-bottom: 12px;
-    }
-
-    .preview-top {
-      height: 150px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #fde7ee, #fff4e8);
-      font-size: 3rem;
-    }
-
-    .preview-body {
-      padding: 14px;
-    }
-
-    .preview-title {
-      font-weight: 800;
-      color: var(--plum);
-      margin-bottom: 6px;
-    }
-
-    .preview-desc {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    .preview-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .preview-badge {
-      font-size: 0.76rem;
-      background: #fff7fa;
-      border: 1px solid var(--border);
-      color: var(--primary-dark);
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-weight: 700;
-    }
-
-    /* ========== FINAL CTA ========== */
-    .final-cta {
-      padding: 0 0 96px;
-    }
-
-    .final-box {
-      background: linear-gradient(135deg, var(--plum), #51283d);
-      color: #fff;
-      border-radius: 34px;
-      padding: 46px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .final-box:before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08), transparent 20%),
-                  radial-gradient(circle at 80% 70%, rgba(242, 160, 176, 0.15), transparent 22%);
-      pointer-events: none;
-    }
-
-    .final-box-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .final-box h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.02;
-      margin-bottom: 10px;
-    }
-
-    .final-box p {
-      color: rgba(255, 255, 255, 0.75);
-      line-height: 1.8;
-      max-width: 660px;
-    }
-
-    /* ========== FOOTER ========== */
-    .footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 0 34px;
-      color: #8d7580;
-      font-size: 0.92rem;
-    }
-
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    /* ========== DASHBOARD (APÓS LOGIN) ========== */
+    /* ========== DASHBOARD ========== */
     .dashboard {
       min-height: 100vh;
       background: var(--bg);
@@ -974,679 +371,367 @@
       background: white;
       border-radius: 24px;
       padding: 30px;
-      margin-bottom: 30px;
       box-shadow: var(--shadow);
     }
 
     .welcome-message {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--plum);
-      margin-bottom: 10px;
-    }
-
-    .user-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .stat-card {
-      background: var(--surface-soft);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--primary-dark);
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-top: 5px;
+      margin-bottom: 20px;
     }
 
     .logout-btn {
       background: var(--error);
       color: white;
-      border: none;
       padding: 12px 24px;
       border-radius: 999px;
       font-weight: 700;
-      cursor: pointer;
       margin-top: 20px;
-    }
-
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 1024px) {
-      .hero-grid,
-      .auth-card,
-      .feature-grid,
-      .how-wrap,
-      .user-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 30px;
-      }
-
-      .hero-card,
-      .auth-right {
-        order: 2;
-      }
-
-      .auth-left {
-        order: 1;
-      }
-
-      .final-box-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .nav-links {
-        display: none;
-      }
-
-      .nav-actions {
-        gap: 8px;
-      }
-
-      .btn-outline,
-      .btn-primary {
-        padding: 12px 16px;
-        font-size: 0.92rem;
-      }
-
-      .auth-left,
-      .auth-right,
-      .final-box {
-        padding: 24px;
-      }
-
-      .row-2 {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
     }
 
     .hidden {
       display: none !important;
     }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .hero-grid, .auth-card {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NOTIFICATION SYSTEM -->
-  <div id="notification" class="notification">
-    <i class="fas fa-check-circle"></i>
-    <span id="notification-message">Mensagem aqui</span>
-  </div>
+<!-- NOTIFICATION -->
+<div id="notification" class="notification">
+  <i class="fas fa-check-circle"></i>
+  <span id="notification-message"></span>
+</div>
 
-  <!-- LOGIN MODAL -->
-  <div id="loginModal" class="modal-overlay">
-    <div class="modal">
-      <button class="modal-close" onclick="closeLoginModal()">
-        <i class="fas fa-times"></i>
-      </button>
-      <h2>Bem-vinda de volta</h2>
-      <p class="modal-subtitle">Entre na sua conta para continuar trocando com estilo</p>
-      
-      <div class="social-grid">
-        <button class="social-btn" onclick="handleSocialLogin('apple')" aria-label="Continuar com Apple">
-          <span class="social-icon"><i class="fab fa-apple"></i></span>
-          Continuar com Apple
-        </button>
-        
-        <button class="social-btn" onclick="handleSocialLogin('google')" aria-label="Continuar com Google">
-          <span class="social-icon"><i class="fab fa-google"></i></span>
-          Continuar com Google
-        </button>
-        
-        <button class="social-btn" onclick="handleSocialLogin('phone')" aria-label="Continuar com telefone">
-          <span class="social-icon"><i class="fas fa-phone-alt"></i></span>
-          Continuar com telefone
-        </button>
-      </div>
-      
-      <div class="divider"><span>ou use seu e-mail</span></div>
-      
-      <form onsubmit="handleEmailLogin(event)">
-        <div class="form-grid">
-          <div class="input-group">
-            <label for="login-email">E-mail</label>
-            <input type="email" id="login-email" placeholder="seu@email.com" required>
-          </div>
-          
-          <div class="input-group">
-            <label for="login-senha">Senha</label>
-            <input type="password" id="login-senha" placeholder="Sua senha" required>
-          </div>
-          
-          <div id="login-error" style="color: var(--error); font-size: .9rem; font-weight: 600;"></div>
-          
-          <button class="btn-create" type="submit">Entrar</button>
-        </div>
-      </form>
-      
-      <div class="auth-foot">
-        Não tem conta? <a href="#" onclick="switchToRegister(); return false;">Criar conta grátis</a>
+<!-- LANDING PAGE -->
+<div id="landingPage">
+  <header class="header">
+    <div class="container nav">
+      <a href="#" class="brand">Swap<span>Style</span></a>
+      <nav class="nav-links">
+        <a href="#cadastro">Cadastro</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn btn-outline" id="openLoginBtn">Entrar</button>
+        <a href="#cadastro" class="btn btn-primary">Criar conta</a>
       </div>
     </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">✨ Moda circular com segurança</div>
+          <h1>Troque roupas com estilo, confiança e praticidade</h1>
+          <p class="lead">Descubra peças incríveis em uma comunidade feminina feita para trocas elegantes e seguras.</p>
+          <div class="hero-actions">
+            <a href="#cadastro" class="btn btn-primary">Criar conta grátis</a>
+            <button class="btn btn-outline" id="heroLoginBtn">Já tenho conta</button>
+          </div>
+          <div class="trust-row">
+            <div class="trust-chip">🔒 Trocas seguras</div>
+            <div class="trust-chip">🌸 Comunidade feminina</div>
+            <div class="trust-chip">⭐ Reputação real</div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="fashion-image">
+            <!-- FOTO MULHER ELEGANTE ALTA COSTURA (estilo italiano) -->
+            <img src="https://images.pexels.com/photos/11832643/pexels-photo-11832643.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                 alt="Mulher elegante italiana com vestido de alta costura"
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop';">
+          </div>
+          <div class="image-caption">
+            <h3>Alta Costura Italiana</h3>
+            <span class="badge">Coleção Exclusive</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CADASTRO -->
+    <section class="auth-section" id="cadastro">
+      <div class="container">
+        <div class="auth-card">
+          <div class="auth-left">
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--plum); margin-bottom: 12px;">Crie sua conta</h2>
+            <p style="color: var(--muted); margin-bottom: 24px;">Junte-se à comunidade de moda circular mais elegante.</p>
+            
+            <form class="form-grid" id="registerForm">
+              <div class="input-group">
+                <label>Nome completo</label>
+                <input type="text" id="regNome" placeholder="Seu nome" required>
+              </div>
+              <div class="input-group">
+                <label>E-mail</label>
+                <input type="email" id="regEmail" placeholder="voce@email.com" required>
+              </div>
+              <div class="input-group">
+                <label>Nome de usuário</label>
+                <input type="text" id="regUsername" placeholder="@seuestilo" required>
+              </div>
+              <div class="input-group">
+                <label>Senha</label>
+                <input type="password" id="regSenha" placeholder="Mínimo 6 caracteres" required minlength="6">
+              </div>
+              <div class="input-group">
+                <label>Confirmar senha</label>
+                <input type="password" id="regSenha2" placeholder="Repita a senha" required>
+              </div>
+              
+              <label style="display: flex; gap: 8px; align-items: center; margin: 8px 0;">
+                <input type="checkbox" id="regTermos" required>
+                <span style="font-size: 0.9rem; color: var(--muted);">Concordo com os termos de uso</span>
+              </label>
+              
+              <div id="regError" style="color: var(--error); font-weight: 600;"></div>
+              
+              <button type="submit" class="btn-create">Criar conta grátis</button>
+            </form>
+            
+            <div class="auth-foot">
+              Já tem conta? <a href="#" id="goToLoginLink">Entrar agora</a>
+            </div>
+          </div>
+          <div class="auth-right">
+            <div style="text-align: center;">
+              <i class="fas fa-gem" style="font-size: 3rem; color: var(--primary); margin-bottom: 16px;"></i>
+              <h3 style="color: var(--plum); margin-bottom: 8px;">Troque com confiança</h3>
+              <p style="color: var(--muted);">Peças verificadas e comunidade segura.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="border-top: 1px solid var(--border); padding: 24px 0; color: var(--muted);">
+    <div class="container" style="display: flex; justify-content: space-between;">
+      <div>© 2026 SwapStyle</div>
+      <div>Moda circular • comunidade feminina</div>
+    </div>
+  </footer>
+</div>
+
+<!-- MODAL DE LOGIN -->
+<div id="loginModal" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000;">
+  <div style="background: white; border-radius: 32px; max-width: 400px; width: 90%; padding: 40px;">
+    <h2 style="font-family: 'Playfair Display', serif; color: var(--plum); margin-bottom: 20px;">Entrar</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label>E-mail</label>
+        <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+      </div>
+      <div class="input-group">
+        <label>Senha</label>
+        <input type="password" id="loginSenha" placeholder="Sua senha" required>
+      </div>
+      <div id="loginError" style="color: var(--error); font-weight: 600; margin: 10px 0;"></div>
+      <button type="submit" class="btn-create">Entrar</button>
+    </form>
+    <button style="margin-top: 16px; width: 100%; padding: 12px; background: none; border: 1px solid var(--border); border-radius: 14px;" onclick="closeLoginModal()">Cancelar</button>
   </div>
+</div>
 
-  <!-- MAIN CONTENT (LANDING PAGE) -->
-  <div id="landingPage">
-    <!-- HEADER -->
-    <header class="header">
-      <div class="container nav">
-        <a href="#" class="brand">Swap<span>Style</span></a>
-
-        <nav class="nav-links">
-          <a href="#beneficios">Benefícios</a>
-          <a href="#como-funciona">Como funciona</a>
-          <a href="#cadastro">Criar conta</a>
-        </nav>
-
-        <div class="nav-actions">
-          <button class="btn btn-outline" onclick="openLoginModal()">Entrar</button>
-          <a href="#cadastro" class="btn btn-primary">Criar conta</a>
+<!-- DASHBOARD (PÓS-LOGIN) -->
+<div id="dashboardPage" class="dashboard hidden">
+  <div class="container">
+    <div class="dashboard-header">
+      <h1 class="welcome-message">Bem-vinda, <span id="userNameDisplay"></span>! 👗</h1>
+      <p style="color: var(--muted); margin-bottom: 20px;">Seu closet está pronto para trocas incríveis.</p>
+      <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px;">
+        <div style="background: var(--surface-soft); padding: 20px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 800; color: var(--primary-dark);" id="dashCoins">50</div>
+          <div style="color: var(--muted);">SwapCoins</div>
+        </div>
+        <div style="background: var(--surface-soft); padding: 20px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 800; color: var(--primary-dark);" id="dashTrocas">0</div>
+          <div style="color: var(--muted);">Trocas</div>
+        </div>
+        <div style="background: var(--surface-soft); padding: 20px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; font-weight: 800; color: var(--primary-dark);">5.0</div>
+          <div style="color: var(--muted);">Reputação</div>
         </div>
       </div>
-    </header>
-
-    <main>
-      <!-- HERO SECTION -->
-      <section class="hero">
-        <div class="container hero-grid">
-          <div>
-            <div class="eyebrow">✨ Moda circular com segurança</div>
-            <h1>Troque roupas com estilo, confiança e praticidade</h1>
-            <p class="lead">
-              Descubra peças incríveis, faça matches e renove seu guarda-roupa em uma comunidade feminina feita para trocas elegantes, seguras e inteligentes.
-            </p>
-
-            <div class="hero-actions">
-              <a href="#cadastro" class="btn btn-primary">Criar conta grátis</a>
-              <button class="btn btn-outline" onclick="openLoginModal()">Já tenho conta</button>
-            </div>
-
-            <div class="trust-row">
-              <div class="trust-chip">🔒 Trocas mais seguras</div>
-              <div class="trust-chip">🌸 Comunidade feminina</div>
-              <div class="trust-chip">📦 Envio com rastreio</div>
-              <div class="trust-chip">⭐ Reputação real</div>
-            </div>
-          </div>
-
-          <div class="hero-card">
-            <div class="floating-badge">Verificação de identidade</div>
-
-            <div class="app-shell">
-              <div class="app-top">
-                <div class="app-title">Estilo que inspira</div>
-                <div class="mini-pill">Top Stylist</div>
-              </div>
-
-              <div class="stylish-woman-photo">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='skin' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23D4A5A5'/%3E%3Cstop offset='100%25' style='stop-color:%23C49090'/%3E%3C/linearGradient%3E%3ClinearGradient id='hair' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233A1F2D'/%3E%3Cstop offset='100%25' style='stop-color:%232B1420'/%3E%3C/linearGradient%3E%3ClinearGradient id='dress' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23D46A84'/%3E%3Cstop offset='100%25' style='stop-color:%23A94B63'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='%23f5e6eb'/%3E%3Cellipse cx='200' cy='100' rx='100' ry='110' fill='url(%23hair)'/%3E%3Cellipse cx='200' cy='120' rx='65' ry='75' fill='url(%23skin)'/%3E%3Cellipse cx='175' cy='110' rx='12' ry='8' fill='white'/%3E%3Cellipse cx='225' cy='110' rx='12' ry='8' fill='white'/%3E%3Ccircle cx='175' cy='110' r='5' fill='%233A1F2D'/%3E%3Ccircle cx='225' cy='110' r='5' fill='%233A1F2D'/%3E%3Cpath d='M160 100 Q175 95 190 100' stroke='%233A1F2D' stroke-width='2' fill='none'/%3E%3Cpath d='M210 100 Q225 95 240 100' stroke='%233A1F2D' stroke-width='2' fill='none'/%3E%3Cpath d='M185 140 Q200 155 215 140' stroke='%23C74867' stroke-width='3' fill='%23D46A84'/%3E%3Cpath d='M150 180 L140 280 L260 280 L250 180 Z' fill='url(%23dress)'/%3E%3Ccircle cx='200' cy='175' r='8' fill='%23E7B66A'/%3E%3Ccircle cx='200' cy='190' r='6' fill='%23E7B66A'/%3E%3Ccircle cx='200' cy='202' r='4' fill='%23E7B66A'/%3E%3C/svg%3E" 
-                     alt="Mulher estilosa com vestido elegante" 
-                     onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=300&fit=crop'">
-                <div class="photo-overlay">
-                  <h3>Isabella Style</h3>
-                  <p>Top Stylist • 4.9 ★</p>
-                </div>
-              </div>
-
-              <div class="swap-row">
-                <div class="mini-card">
-                  <strong>Look do dia</strong>
-                  Vestido Midi Rosé
-                </div>
-                <div class="mini-card">
-                  <strong>Disponível para</strong>
-                  Troca ou SwapCoins
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- BENEFITS SECTION -->
-      <section class="section" id="beneficios">
-        <div class="container">
-          <div class="section-head">
-            <div class="overline">Benefícios</div>
-            <h2>Uma nova forma de renovar o seu closet</h2>
-            <p>O SwapStyle foi pensado para unir estética, segurança e praticidade.</p>
-          </div>
-
-          <div class="feature-grid">
-            <div class="feature-card">
-              <div class="feature-icon"><i class="fas fa-magic"></i></div>
-              <h3>Match de peças</h3>
-              <p>Explore peças que combinam com o seu perfil e faça trocas com muito mais agilidade.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-              <h3>Mais segurança</h3>
-              <p>Identidade verificada, histórico de usuária e confirmação de recebimento.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon"><i class="fas fa-coins"></i></div>
-              <h3>SwapCoins</h3>
-              <p>Equalize diferenças de valor entre peças e torne as trocas mais justas.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- REGISTRATION SECTION -->
-      <section class="auth-section" id="cadastro">
-        <div class="container">
-          <div class="auth-card">
-            <div class="auth-left">
-              <div class="tiny">Comece agora</div>
-              <h2>Crie sua conta gratuitamente</h2>
-              <p class="sub">Cadastre-se e comece a trocar roupas com estilo e segurança.</p>
-
-              <form class="form-grid" onsubmit="handleRegister(event)">
-                <div class="input-group">
-                  <label for="cad-nome">Nome completo *</label>
-                  <input type="text" id="cad-nome" placeholder="Seu nome completo" required>
-                </div>
-
-                <div class="row-2">
-                  <div class="input-group">
-                    <label for="cad-email">E-mail *</label>
-                    <input type="email" id="cad-email" placeholder="voce@email.com" required>
-                  </div>
-                  <div class="input-group">
-                    <label for="cad-username">Usuário *</label>
-                    <input type="text" id="cad-username" placeholder="seuestilo" required>
-                  </div>
-                </div>
-
-                <div class="row-2">
-                  <div class="input-group">
-                    <label for="cad-senha">Senha *</label>
-                    <input type="password" id="cad-senha" placeholder="Mínimo 6 caracteres" required minlength="6">
-                  </div>
-                  <div class="input-group">
-                    <label for="cad-senha2">Confirmar *</label>
-                    <input type="password" id="cad-senha2" placeholder="Repita a senha" required minlength="6">
-                  </div>
-                </div>
-
-                <label class="terms">
-                  <input type="checkbox" id="aceite-termos" required>
-                  <span>Concordo com os <a href="#" onclick="showTerms(); return false;">termos de uso</a></span>
-                </label>
-
-                <div id="cad-error" style="color: var(--error); font-size: .9rem; font-weight: 600;"></div>
-
-                <button class="btn-create" type="submit" id="register-btn">Criar conta grátis</button>
-              </form>
-
-              <div class="auth-foot">
-                Já tem conta? <a href="#" onclick="openLoginModal(); return false;">Entrar agora</a>
-              </div>
-            </div>
-
-            <div class="auth-right">
-              <div class="preview-phone">
-                <div class="phone-bar"></div>
-                <div class="preview-card">
-                  <div class="preview-top"><i class="fas fa-shopping-bag"></i></div>
-                  <div class="preview-body">
-                    <div class="preview-title">Bolsa premium</div>
-                    <div class="preview-desc">Verificada e com envio seguro.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container footer-row">
-        <div>© 2026 SwapStyle. Todos os direitos reservados.</div>
-        <div>Moda circular • comunidade feminina</div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- DASHBOARD (APÓS LOGIN) -->
-  <div id="dashboardPage" class="dashboard hidden">
-    <div class="container">
-      <div class="dashboard-header">
-        <h1 class="welcome-message">Bem-vinda, <span id="userName"></span>! 👗</h1>
-        <p>Seu closet está pronto para novas trocas incríveis.</p>
-        
-        <div class="user-stats">
-          <div class="stat-card">
-            <div class="stat-value" id="totalTrocas">0</div>
-            <div class="stat-label">Trocas realizadas</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="swapCoins">0</div>
-            <div class="stat-label">SwapCoins</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="reputacao">5.0</div>
-            <div class="stat-label">Reputação</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="pecasAtivas">0</div>
-            <div class="stat-label">Peças ativas</div>
-          </div>
-        </div>
-        
-        <button class="logout-btn" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i> Sair da conta
-        </button>
-      </div>
+      <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair da conta</button>
     </div>
   </div>
+</div>
 
-  <script>
-    // ============= LOCALSTORAGE (BANCO DE DADOS) =============
+<script>
+  (function(){
+    "use strict";
+
+    // ---------- localStorage DB ----------
     const DB = {
-      saveUser(user) {
-        const users = this.getUsers();
+      getUsers: () => JSON.parse(localStorage.getItem('swapstyle_users') || '[]'),
+      saveUser: (user) => {
+        const users = DB.getUsers();
         users.push(user);
         localStorage.setItem('swapstyle_users', JSON.stringify(users));
       },
-      
-      getUsers() {
-        return JSON.parse(localStorage.getItem('swapstyle_users') || '[]');
-      },
-      
-      findUser(email, senha) {
-        return this.getUsers().find(u => u.email === email && u.senha === senha);
-      },
-      
-      emailExists(email) {
-        return this.getUsers().some(u => u.email === email);
-      },
-      
-      usernameExists(username) {
-        return this.getUsers().some(u => u.username === username);
-      },
-      
-      setCurrentUser(user) {
-        localStorage.setItem('swapstyle_current_user', JSON.stringify(user));
-      },
-      
-      getCurrentUser() {
-        return JSON.parse(localStorage.getItem('swapstyle_current_user') || 'null');
-      },
-      
-      logout() {
-        localStorage.removeItem('swapstyle_current_user');
-      }
+      findUser: (email, senha) => DB.getUsers().find(u => u.email === email && u.senha === senha),
+      emailExists: (email) => DB.getUsers().some(u => u.email === email),
+      usernameExists: (username) => DB.getUsers().some(u => u.username === username),
+      setCurrentUser: (user) => localStorage.setItem('swapstyle_current_user', JSON.stringify(user)),
+      getCurrentUser: () => JSON.parse(localStorage.getItem('swapstyle_current_user') || 'null'),
+      logout: () => localStorage.removeItem('swapstyle_current_user')
     };
 
-    // ============= NOTIFICATION SYSTEM =============
-    function showNotification(message, type = 'success') {
-      const notification = document.getElementById('notification');
-      const icon = notification.querySelector('i');
-      const messageSpan = document.getElementById('notification-message');
-      
-      notification.className = 'notification ' + type;
-      icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-      messageSpan.textContent = message;
-      
-      notification.classList.add('show');
-      
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 4000);
-    }
+    // ---------- UI Helpers ----------
+    const landing = document.getElementById('landingPage');
+    const dashboard = document.getElementById('dashboardPage');
+    const loginModal = document.getElementById('loginModal');
+    const notification = document.getElementById('notification');
+    const notifMsg = document.getElementById('notification-message');
 
-    // ============= MODAL FUNCTIONS =============
-    function openLoginModal() {
-      document.getElementById('loginModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
+    function showNotification(msg, type='success') {
+      notifMsg.textContent = msg;
+      notification.className = 'notification ' + type;
+      notification.classList.add('show');
+      setTimeout(() => notification.classList.remove('show'), 3000);
     }
 
     function closeLoginModal() {
-      document.getElementById('loginModal').classList.remove('active');
-      document.body.style.overflow = 'auto';
-      document.getElementById('login-error').textContent = '';
+      loginModal.style.display = 'none';
+      document.body.style.overflow = '';
     }
 
-    function switchToRegister() {
-      closeLoginModal();
-      document.getElementById('cadastro').scrollIntoView({ behavior: 'smooth' });
+    function openLoginModal() {
+      loginModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     }
 
-    // ============= LOGIN FUNCTIONS =============
-    function handleEmailLogin(event) {
-      event.preventDefault();
-      
-      const email = document.getElementById('login-email').value;
-      const senha = document.getElementById('login-senha').value;
-      const errorDiv = document.getElementById('login-error');
-      
-      errorDiv.textContent = '';
-      
-      const user = DB.findUser(email, senha);
-      
-      if (user) {
-        DB.setCurrentUser(user);
-        showNotification(`Bem-vinda de volta, ${user.nome.split(' ')[0]}!`, 'success');
-        closeLoginModal();
-        showDashboard();
-      } else {
-        errorDiv.textContent = 'E-mail ou senha incorretos.';
-      }
-    }
-
-    function handleSocialLogin(provider) {
-      showNotification(`Login com ${provider} em desenvolvimento. Use e-mail por enquanto.`, 'error');
-    }
-
-    // ============= REGISTER FUNCTIONS =============
-    async function handleRegister(event) {
-      event.preventDefault();
-      
-      const btn = document.getElementById('register-btn');
-      const originalText = btn.textContent;
-      const errorDiv = document.getElementById('cad-error');
-      
-      btn.disabled = true;
-      btn.textContent = 'Criando conta...';
-      errorDiv.textContent = '';
-      
-      const nome = document.getElementById('cad-nome').value.trim();
-      const username = document.getElementById('cad-username').value.trim().toLowerCase();
-      const email = document.getElementById('cad-email').value.trim().toLowerCase();
-      const senha = document.getElementById('cad-senha').value;
-      const senha2 = document.getElementById('cad-senha2').value;
-      
-      // Validações
-      if (senha !== senha2) {
-        errorDiv.textContent = 'As senhas não conferem.';
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-      
-      if (senha.length < 6) {
-        errorDiv.textContent = 'A senha deve ter pelo menos 6 caracteres.';
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-      
-      const usernameRegex = /^[a-zA-Z0-9._]+$/;
-      if (!usernameRegex.test(username)) {
-        errorDiv.textContent = 'Usuário deve conter apenas letras, números, "_" ou "."';
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-      
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        errorDiv.textContent = 'Por favor, insira um e-mail válido.';
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-      
-      if (nome.length < 3) {
-        errorDiv.textContent = 'Por favor, insira seu nome completo.';
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-      
-      // Verificar se email ou username já existe
-      if (DB.emailExists(email)) {
-        errorDiv.textContent = 'Este e-mail já está cadastrado.';
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-      
-      if (DB.usernameExists(username)) {
-        errorDiv.textContent = 'Este nome de usuário já está em uso.';
-        btn.disabled = false;
-        btn.textContent = originalText;
-        return;
-      }
-      
-      // Criar usuário
-      const user = {
-        nome: nome.replace(/\s+/g, ' '),
-        username: username,
-        email: email,
-        senha: senha,
-        dataCadastro: new Date().toISOString(),
-        swapCoins: 50, // Bônus de boas-vindas
-        trocas: 0,
-        reputacao: 5.0
-      };
-      
-      try {
-        DB.saveUser(user);
-        DB.setCurrentUser(user);
-        
-        showNotification('Conta criada com sucesso! Ganhe 50 SwapCoins de boas-vindas! 🎉', 'success');
-        event.target.reset();
-        
-        setTimeout(() => {
-          showDashboard();
-        }, 1500);
-        
-      } catch (e) {
-        errorDiv.textContent = 'Erro ao criar conta. Tente novamente.';
-        showNotification('Erro ao criar conta. Tente novamente.', 'error');
-      } finally {
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
-    }
-
-    function handleSocialRegister(provider) {
-      showNotification(`Cadastro com ${provider} em desenvolvimento. Use e-mail por enquanto.`, 'error');
-    }
-
-    // ============= DASHBOARD =============
     function showDashboard() {
       const user = DB.getCurrentUser();
-      
-      if (!user) {
-        showNotification('Faça login para continuar', 'error');
-        return;
-      }
-      
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('dashboardPage').classList.remove('hidden');
-      
-      document.getElementById('userName').textContent = user.nome.split(' ')[0];
-      document.getElementById('totalTrocas').textContent = user.trocas || 0;
-      document.getElementById('swapCoins').textContent = user.swapCoins || 0;
-      document.getElementById('reputacao').textContent = user.reputacao || '5.0';
-      document.getElementById('pecasAtivas').textContent = Math.floor(Math.random() * 5) + 1;
-      
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (!user) return;
+      landing.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      document.getElementById('userNameDisplay').textContent = user.nome.split(' ')[0];
+      document.getElementById('dashCoins').textContent = user.swapCoins || 50;
+      document.getElementById('dashTrocas').textContent = user.trocas || 0;
     }
 
     function logout() {
       DB.logout();
-      document.getElementById('dashboardPage').classList.add('hidden');
-      document.getElementById('landingPage').classList.remove('hidden');
-      showNotification('Você saiu da sua conta. Até logo! 👋', 'success');
+      dashboard.classList.add('hidden');
+      landing.classList.remove('hidden');
+      showNotification('Logout realizado com sucesso.');
     }
 
-    // ============= CHECK LOGIN ON LOAD =============
-    function checkLoggedIn() {
-      const user = DB.getCurrentUser();
+    // ---------- REGISTER ----------
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nome = document.getElementById('regNome').value.trim();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
+      const username = document.getElementById('regUsername').value.trim().toLowerCase();
+      const senha = document.getElementById('regSenha').value;
+      const senha2 = document.getElementById('regSenha2').value;
+      const errorDiv = document.getElementById('regError');
+
+      errorDiv.textContent = '';
+
+      if (senha !== senha2) {
+        errorDiv.textContent = 'As senhas não coincidem.';
+        return;
+      }
+      if (senha.length < 6) {
+        errorDiv.textContent = 'A senha deve ter no mínimo 6 caracteres.';
+        return;
+      }
+      if (!/^[a-zA-Z0-9._]+$/.test(username)) {
+        errorDiv.textContent = 'Username inválido (apenas letras, números, _ e .)';
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorDiv.textContent = 'E-mail inválido.';
+        return;
+      }
+      if (DB.emailExists(email)) {
+        errorDiv.textContent = 'E-mail já cadastrado.';
+        return;
+      }
+      if (DB.usernameExists(username)) {
+        errorDiv.textContent = 'Username já em uso.';
+        return;
+      }
+
+      const user = {
+        nome,
+        email,
+        username,
+        senha,
+        swapCoins: 50,
+        trocas: 0,
+        dataCadastro: new Date().toISOString()
+      };
+
+      DB.saveUser(user);
+      DB.setCurrentUser(user);
+      showNotification('Cadastro realizado! Bem-vinda! 🎉');
+      this.reset();
+      showDashboard();
+    });
+
+    // ---------- LOGIN ----------
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const senha = document.getElementById('loginSenha').value;
+      const errorDiv = document.getElementById('loginError');
+
+      const user = DB.findUser(email, senha);
       if (user) {
+        DB.setCurrentUser(user);
+        showNotification(`Bem-vinda, ${user.nome.split(' ')[0]}!`);
+        closeLoginModal();
         showDashboard();
-      }
-    }
-
-    // ============= UTILITIES =============
-    function showTerms() {
-      showNotification('Termos de uso: Ao usar SwapStyle, você concorda em trocar roupas de forma respeitosa.', 'success');
-    }
-
-    // ============= KEYBOARD SHORTCUTS =============
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && document.getElementById('loginModal').classList.contains('active')) {
-        closeLoginModal();
+        this.reset();
+        errorDiv.textContent = '';
+      } else {
+        errorDiv.textContent = 'E-mail ou senha incorretos.';
       }
     });
 
-    document.getElementById('loginModal').addEventListener('click', (e) => {
-      if (e.target.classList.contains('modal-overlay')) {
-        closeLoginModal();
-      }
+    // ---------- Event Listeners ----------
+    document.getElementById('openLoginBtn').addEventListener('click', openLoginModal);
+    document.getElementById('heroLoginBtn').addEventListener('click', openLoginModal);
+    document.getElementById('goToLoginLink').addEventListener('click', (e) => { e.preventDefault(); openLoginModal(); });
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
+    window.addEventListener('click', (e) => {
+      if (e.target === loginModal) closeLoginModal();
     });
 
-    // ============= SMOOTH SCROLL =============
+    // Check login ao carregar
+    if (DB.getCurrentUser()) {
+      showDashboard();
+    }
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
         if (href === '#') return;
-        
         e.preventDefault();
         const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
 
-    // ============= INITIALIZATION =============
-    checkLoggedIn();
-    
-    console.log('✨ SwapStyle - Sistema de cadastro 100% funcional!');
-    console.log('💾 Dados salvos no seu navegador (localStorage)');
-  </script>
+  })();
+</script>
 </body>
 </html>
