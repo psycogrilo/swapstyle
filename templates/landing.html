@@ -963,12 +963,72 @@
       flex-wrap: wrap;
     }
 
+    /* ========== DASHBOARD (APÓS LOGIN) ========== */
+    .dashboard {
+      min-height: 100vh;
+      background: var(--bg);
+      padding: 40px 0;
+    }
+
+    .dashboard-header {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .welcome-message {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--plum);
+      margin-bottom: 10px;
+    }
+
+    .user-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: var(--surface-soft);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    .logout-btn {
+      background: var(--error);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
     /* ========== RESPONSIVE ========== */
     @media (max-width: 1024px) {
       .hero-grid,
       .auth-card,
       .feature-grid,
-      .how-wrap {
+      .how-wrap,
+      .user-stats {
         grid-template-columns: 1fr;
       }
 
@@ -1024,6 +1084,10 @@
       .hero-actions .btn {
         width: 100%;
       }
+    }
+
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
@@ -1087,328 +1151,262 @@
     </div>
   </div>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container nav">
-      <a href="#" class="brand">Swap<span>Style</span></a>
+  <!-- MAIN CONTENT (LANDING PAGE) -->
+  <div id="landingPage">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="container nav">
+        <a href="#" class="brand">Swap<span>Style</span></a>
 
-      <nav class="nav-links">
-        <a href="#beneficios">Benefícios</a>
-        <a href="#como-funciona">Como funciona</a>
-        <a href="#cadastro">Criar conta</a>
-      </nav>
+        <nav class="nav-links">
+          <a href="#beneficios">Benefícios</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#cadastro">Criar conta</a>
+        </nav>
 
-      <div class="nav-actions">
-        <button class="btn btn-outline" onclick="openLoginModal()">Entrar</button>
-        <a href="#cadastro" class="btn btn-primary">Criar conta</a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- HERO SECTION -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">✨ Moda circular com segurança</div>
-          <h1>Troque roupas com estilo, confiança e praticidade</h1>
-          <p class="lead">
-            Descubra peças incríveis, faça matches e renove seu guarda-roupa em uma comunidade feminina feita para trocas elegantes, seguras e inteligentes.
-          </p>
-
-          <div class="hero-actions">
-            <a href="#cadastro" class="btn btn-primary">Criar conta grátis</a>
-            <button class="btn btn-outline" onclick="openLoginModal()">Já tenho conta</button>
-          </div>
-
-          <div class="trust-row">
-            <div class="trust-chip">🔒 Trocas mais seguras</div>
-            <div class="trust-chip">🌸 Comunidade feminina</div>
-            <div class="trust-chip">📦 Envio com rastreio</div>
-            <div class="trust-chip">⭐ Reputação real</div>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="floating-badge">Verificação de identidade</div>
-
-          <div class="app-shell">
-            <div class="app-top">
-              <div class="app-title">Estilo que inspira</div>
-              <div class="mini-pill">Top Stylist</div>
-            </div>
-
-            <!-- FOTO DA MULHER ESTILOSA -->
-            <div class="stylish-woman-photo">
-              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='skin' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23D4A5A5'/%3E%3Cstop offset='100%25' style='stop-color:%23C49090'/%3E%3C/linearGradient%3E%3ClinearGradient id='hair' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233A1F2D'/%3E%3Cstop offset='100%25' style='stop-color:%232B1420'/%3E%3C/linearGradient%3E%3ClinearGradient id='dress' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23D46A84'/%3E%3Cstop offset='100%25' style='stop-color:%23A94B63'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='%23f5e6eb'/%3E%3C!-- Cabelo --%3E%3Cellipse cx='200' cy='100' rx='100' ry='110' fill='url(%23hair)'/%3E%3C!-- Rosto --%3E%3Cellipse cx='200' cy='120' rx='65' ry='75' fill='url(%23skin)'/%3E%3C!-- Olhos --%3E%3Cellipse cx='175' cy='110' rx='12' ry='8' fill='white'/%3E%3Cellipse cx='225' cy='110' rx='12' ry='8' fill='white'/%3E%3Ccircle cx='175' cy='110' r='5' fill='%233A1F2D'/%3E%3Ccircle cx='225' cy='110' r='5' fill='%233A1F2D'/%3E%3C!-- Sobrancelhas --%3E%3Cpath d='M160 100 Q175 95 190 100' stroke='%233A1F2D' stroke-width='2' fill='none'/%3E%3Cpath d='M210 100 Q225 95 240 100' stroke='%233A1F2D' stroke-width='2' fill='none'/%3E%3C!-- Boca --%3E%3Cpath d='M185 140 Q200 155 215 140' stroke='%23C74867' stroke-width='3' fill='%23D46A84'/%3E%3C!-- Vestido --%3E%3Cpath d='M150 180 L140 280 L260 280 L250 180 Z' fill='url(%23dress)'/%3E%3C!-- Colar --%3E%3Ccircle cx='200' cy='175' r='8' fill='%23E7B66A'/%3E%3Ccircle cx='200' cy='190' r='6' fill='%23E7B66A'/%3E%3Ccircle cx='200' cy='202' r='4' fill='%23E7B66A'/%3E%3C/svg%3E" 
-                   alt="Mulher estilosa com vestido elegante" 
-                   onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=300&fit=crop'">
-              <div class="photo-overlay">
-                <h3>Isabella Style</h3>
-                <p>Top Stylist • 4.9 ★</p>
-              </div>
-            </div>
-
-            <div class="swap-row">
-              <div class="mini-card">
-                <strong>Look do dia</strong>
-                Vestido Midi Rosé
-              </div>
-              <div class="mini-card">
-                <strong>Disponível para</strong>
-                Troca ou SwapCoins
-              </div>
-            </div>
-          </div>
+        <div class="nav-actions">
+          <button class="btn btn-outline" onclick="openLoginModal()">Entrar</button>
+          <a href="#cadastro" class="btn btn-primary">Criar conta</a>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- BENEFITS SECTION -->
-    <section class="section" id="beneficios">
-      <div class="container">
-        <div class="section-head">
-          <div class="overline">Benefícios</div>
-          <h2>Uma nova forma de renovar o seu closet</h2>
-          <p>
-            O SwapStyle foi pensado para unir estética, segurança e praticidade em uma experiência de troca que parece premium desde o primeiro acesso.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-          <div class="feature-card">
-            <div class="feature-icon"><i class="fas fa-magic"></i></div>
-            <h3>Match de peças</h3>
-            <p>Explore peças que combinam com o seu perfil e faça trocas com muito mais agilidade.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-            <h3>Mais segurança</h3>
-            <p>Identidade verificada, histórico de usuária e confirmação de recebimento antes da conclusão.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i class="fas fa-coins"></i></div>
-            <h3>SwapCoins</h3>
-            <p>Equalize diferenças de valor entre peças e torne as trocas mais justas e flexíveis.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i class="fas fa-star"></i></div>
-            <h3>Reputação confiável</h3>
-            <p>Quanto melhor sua experiência nas trocas, maior sua credibilidade dentro da comunidade.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i class="fas fa-leaf"></i></div>
-            <h3>Moda com propósito</h3>
-            <p>Dê nova vida às roupas paradas e participe de um consumo mais inteligente e sustentável.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i class="fas fa-heart"></i></div>
-            <h3>Comunidade feminina</h3>
-            <p>Um ambiente pensado para o universo feminino, com estética, confiança e conexão real.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="section" id="como-funciona">
-      <div class="container">
-        <div class="section-head">
-          <div class="overline">Como funciona</div>
-          <h2>Simples, bonito e intuitivo</h2>
-          <p>
-            A experiência foi desenhada para ser leve, segura e parecida com os melhores apps de relacionamento e marketplace.
-          </p>
-        </div>
-
-        <div class="how-wrap">
-          <div class="step-card">
-            <div class="step-no">1</div>
-            <h4>Crie seu perfil</h4>
-            <p>Entre com e-mail, Apple, Google ou telefone e monte seu perfil com estilo e preferências.</p>
-          </div>
-
-          <div class="step-card">
-            <div class="step-no">2</div>
-            <h4>Publique e descubra peças</h4>
-            <p>Cadastre o que deseja trocar e navegue por peças alinhadas ao seu gosto e tamanho.</p>
-          </div>
-
-          <div class="step-card">
-            <div class="step-no">3</div>
-            <h4>Faça a troca com confiança</h4>
-            <p>Quando houver interesse mútuo, a troca avança com rastreio, reputação e confirmação final.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- REGISTRATION SECTION -->
-    <section class="auth-section" id="cadastro">
-      <div class="container">
-        <div class="auth-card">
-          <div class="auth-left">
-            <div class="tiny">Comece agora</div>
-            <h2>Crie sua conta em menos de 2 minutos</h2>
-            <p class="sub">
-              Escolha a forma mais prática para entrar. Você pode continuar com Apple, Google, telefone ou criar sua conta com e-mail.
+    <main>
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">✨ Moda circular com segurança</div>
+            <h1>Troque roupas com estilo, confiança e praticidade</h1>
+            <p class="lead">
+              Descubra peças incríveis, faça matches e renove seu guarda-roupa em uma comunidade feminina feita para trocas elegantes, seguras e inteligentes.
             </p>
 
-            <div class="social-grid">
-              <button class="social-btn" onclick="handleSocialRegister('apple')" aria-label="Continuar com Apple">
-                <span class="social-icon"><i class="fab fa-apple"></i></span>
-                Continuar com Apple
-              </button>
-
-              <button class="social-btn" onclick="handleSocialRegister('google')" aria-label="Continuar com Google">
-                <span class="social-icon"><i class="fab fa-google"></i></span>
-                Continuar com Google
-              </button>
-
-              <button class="social-btn" onclick="handleSocialRegister('phone')" aria-label="Continuar com telefone">
-                <span class="social-icon"><i class="fas fa-phone-alt"></i></span>
-                Continuar com telefone
-              </button>
+            <div class="hero-actions">
+              <a href="#cadastro" class="btn btn-primary">Criar conta grátis</a>
+              <button class="btn btn-outline" onclick="openLoginModal()">Já tenho conta</button>
             </div>
 
-            <div class="divider"><span>ou crie com e-mail</span></div>
-
-            <form class="form-grid" onsubmit="handleRegister(event)">
-              <div class="input-group">
-                <label for="cad-nome">Nome completo</label>
-                <input type="text" id="cad-nome" placeholder="Seu nome completo" required>
-              </div>
-
-              <div class="row-2">
-                <div class="input-group">
-                  <label for="cad-email">E-mail</label>
-                  <input type="email" id="cad-email" placeholder="voce@email.com" required>
-                </div>
-
-                <div class="input-group">
-                  <label for="cad-username">Nome de usuário</label>
-                  <input type="text" id="cad-username" placeholder="@seuestilo" required>
-                </div>
-              </div>
-
-              <div class="row-2">
-                <div class="input-group">
-                  <label for="cad-senha">Senha</label>
-                  <input type="password" id="cad-senha" placeholder="Crie uma senha" required minlength="6">
-                </div>
-
-                <div class="input-group">
-                  <label for="cad-senha2">Confirmar senha</label>
-                  <input type="password" id="cad-senha2" placeholder="Repita a senha" required minlength="6">
-                </div>
-              </div>
-
-              <div class="row-2">
-                <div class="input-group">
-                  <label for="cad-tel">Telefone</label>
-                  <input type="tel" id="cad-tel" placeholder="(11) 99999-9999" oninput="mascaraTelefone(this)">
-                </div>
-
-                <div class="input-group">
-                  <label for="cad-cep">CEP</label>
-                  <input type="text" id="cad-cep" placeholder="00000-000" maxlength="9" oninput="mascaraCep(this)" onblur="buscarCep()">
-                </div>
-              </div>
-
-              <div class="row-2">
-                <div class="input-group">
-                  <label for="cad-cidade">Cidade</label>
-                  <input type="text" id="cad-cidade" placeholder="Sua cidade">
-                </div>
-
-                <div class="input-group">
-                  <label for="cad-estado">Estado</label>
-                  <input type="text" id="cad-estado" placeholder="UF" maxlength="2">
-                </div>
-              </div>
-
-              <label class="terms">
-                <input type="checkbox" id="aceite-termos" required>
-                <span>Ao criar sua conta, você concorda com os <a href="#" onclick="showTerms(); return false;">termos de uso</a> e com a <a href="#" onclick="showPrivacy(); return false;">política de privacidade</a> do SwapStyle.</span>
-              </label>
-
-              <div id="cad-error" style="color: var(--error); font-size: .9rem; font-weight: 600;"></div>
-
-              <button class="btn-create" type="submit" id="register-btn">Criar conta grátis</button>
-            </form>
-
-            <div class="auth-foot">
-              Já tem conta? <a href="#" onclick="openLoginModal(); return false;">Entrar agora</a>
+            <div class="trust-row">
+              <div class="trust-chip">🔒 Trocas mais seguras</div>
+              <div class="trust-chip">🌸 Comunidade feminina</div>
+              <div class="trust-chip">📦 Envio com rastreio</div>
+              <div class="trust-chip">⭐ Reputação real</div>
             </div>
           </div>
 
-          <div class="auth-right">
-            <div class="preview-phone">
-              <div class="phone-bar"></div>
+          <div class="hero-card">
+            <div class="floating-badge">Verificação de identidade</div>
 
-              <div class="preview-card">
-                <div class="preview-top"><i class="fas fa-shopping-bag"></i></div>
-                <div class="preview-body">
-                  <div class="preview-title">Bolsa premium em ótimo estado</div>
-                  <div class="preview-desc">Peça verificada, reputação alta e envio com rastreio obrigatório.</div>
-                  <div class="preview-badges">
-                    <span class="preview-badge">Verificada</span>
-                    <span class="preview-badge">Entrega segura</span>
-                    <span class="preview-badge">Match alto</span>
-                  </div>
+            <div class="app-shell">
+              <div class="app-top">
+                <div class="app-title">Estilo que inspira</div>
+                <div class="mini-pill">Top Stylist</div>
+              </div>
+
+              <div class="stylish-woman-photo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='skin' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23D4A5A5'/%3E%3Cstop offset='100%25' style='stop-color:%23C49090'/%3E%3C/linearGradient%3E%3ClinearGradient id='hair' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233A1F2D'/%3E%3Cstop offset='100%25' style='stop-color:%232B1420'/%3E%3C/linearGradient%3E%3ClinearGradient id='dress' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23D46A84'/%3E%3Cstop offset='100%25' style='stop-color:%23A94B63'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='%23f5e6eb'/%3E%3Cellipse cx='200' cy='100' rx='100' ry='110' fill='url(%23hair)'/%3E%3Cellipse cx='200' cy='120' rx='65' ry='75' fill='url(%23skin)'/%3E%3Cellipse cx='175' cy='110' rx='12' ry='8' fill='white'/%3E%3Cellipse cx='225' cy='110' rx='12' ry='8' fill='white'/%3E%3Ccircle cx='175' cy='110' r='5' fill='%233A1F2D'/%3E%3Ccircle cx='225' cy='110' r='5' fill='%233A1F2D'/%3E%3Cpath d='M160 100 Q175 95 190 100' stroke='%233A1F2D' stroke-width='2' fill='none'/%3E%3Cpath d='M210 100 Q225 95 240 100' stroke='%233A1F2D' stroke-width='2' fill='none'/%3E%3Cpath d='M185 140 Q200 155 215 140' stroke='%23C74867' stroke-width='3' fill='%23D46A84'/%3E%3Cpath d='M150 180 L140 280 L260 280 L250 180 Z' fill='url(%23dress)'/%3E%3Ccircle cx='200' cy='175' r='8' fill='%23E7B66A'/%3E%3Ccircle cx='200' cy='190' r='6' fill='%23E7B66A'/%3E%3Ccircle cx='200' cy='202' r='4' fill='%23E7B66A'/%3E%3C/svg%3E" 
+                     alt="Mulher estilosa com vestido elegante" 
+                     onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=300&fit=crop'">
+                <div class="photo-overlay">
+                  <h3>Isabella Style</h3>
+                  <p>Top Stylist • 4.9 ★</p>
                 </div>
               </div>
 
-              <div class="preview-card">
-                <div class="preview-top"><i class="fas fa-shoe-prints"></i></div>
-                <div class="preview-body">
-                  <div class="preview-title">Sapato elegante para eventos</div>
-                  <div class="preview-desc">Troque com praticidade e equalize diferenças com SwapCoins.</div>
-                  <div class="preview-badges">
-                    <span class="preview-badge">SwapCoins</span>
-                    <span class="preview-badge">Reputação 4.9</span>
+              <div class="swap-row">
+                <div class="mini-card">
+                  <strong>Look do dia</strong>
+                  Vestido Midi Rosé
+                </div>
+                <div class="mini-card">
+                  <strong>Disponível para</strong>
+                  Troca ou SwapCoins
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BENEFITS SECTION -->
+      <section class="section" id="beneficios">
+        <div class="container">
+          <div class="section-head">
+            <div class="overline">Benefícios</div>
+            <h2>Uma nova forma de renovar o seu closet</h2>
+            <p>O SwapStyle foi pensado para unir estética, segurança e praticidade.</p>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fas fa-magic"></i></div>
+              <h3>Match de peças</h3>
+              <p>Explore peças que combinam com o seu perfil e faça trocas com muito mais agilidade.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+              <h3>Mais segurança</h3>
+              <p>Identidade verificada, histórico de usuária e confirmação de recebimento.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fas fa-coins"></i></div>
+              <h3>SwapCoins</h3>
+              <p>Equalize diferenças de valor entre peças e torne as trocas mais justas.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REGISTRATION SECTION -->
+      <section class="auth-section" id="cadastro">
+        <div class="container">
+          <div class="auth-card">
+            <div class="auth-left">
+              <div class="tiny">Comece agora</div>
+              <h2>Crie sua conta gratuitamente</h2>
+              <p class="sub">Cadastre-se e comece a trocar roupas com estilo e segurança.</p>
+
+              <form class="form-grid" onsubmit="handleRegister(event)">
+                <div class="input-group">
+                  <label for="cad-nome">Nome completo *</label>
+                  <input type="text" id="cad-nome" placeholder="Seu nome completo" required>
+                </div>
+
+                <div class="row-2">
+                  <div class="input-group">
+                    <label for="cad-email">E-mail *</label>
+                    <input type="email" id="cad-email" placeholder="voce@email.com" required>
+                  </div>
+                  <div class="input-group">
+                    <label for="cad-username">Usuário *</label>
+                    <input type="text" id="cad-username" placeholder="seuestilo" required>
+                  </div>
+                </div>
+
+                <div class="row-2">
+                  <div class="input-group">
+                    <label for="cad-senha">Senha *</label>
+                    <input type="password" id="cad-senha" placeholder="Mínimo 6 caracteres" required minlength="6">
+                  </div>
+                  <div class="input-group">
+                    <label for="cad-senha2">Confirmar *</label>
+                    <input type="password" id="cad-senha2" placeholder="Repita a senha" required minlength="6">
+                  </div>
+                </div>
+
+                <label class="terms">
+                  <input type="checkbox" id="aceite-termos" required>
+                  <span>Concordo com os <a href="#" onclick="showTerms(); return false;">termos de uso</a></span>
+                </label>
+
+                <div id="cad-error" style="color: var(--error); font-size: .9rem; font-weight: 600;"></div>
+
+                <button class="btn-create" type="submit" id="register-btn">Criar conta grátis</button>
+              </form>
+
+              <div class="auth-foot">
+                Já tem conta? <a href="#" onclick="openLoginModal(); return false;">Entrar agora</a>
+              </div>
+            </div>
+
+            <div class="auth-right">
+              <div class="preview-phone">
+                <div class="phone-bar"></div>
+                <div class="preview-card">
+                  <div class="preview-top"><i class="fas fa-shopping-bag"></i></div>
+                  <div class="preview-body">
+                    <div class="preview-title">Bolsa premium</div>
+                    <div class="preview-desc">Verificada e com envio seguro.</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer-row">
+        <div>© 2026 SwapStyle. Todos os direitos reservados.</div>
+        <div>Moda circular • comunidade feminina</div>
       </div>
-    </section>
+    </footer>
+  </div>
 
-    <!-- FINAL CTA -->
-    <section class="final-cta">
-      <div class="container">
-        <div class="final-box">
-          <div class="final-box-inner">
-            <div>
-              <h3>Seu closet pode girar com mais estilo</h3>
-              <p>
-                Entre para o SwapStyle e transforme peças paradas em novas possibilidades com uma experiência feminina, sofisticada e segura.
-              </p>
-            </div>
-
-            <a href="#cadastro" class="btn btn-primary">Começar agora</a>
+  <!-- DASHBOARD (APÓS LOGIN) -->
+  <div id="dashboardPage" class="dashboard hidden">
+    <div class="container">
+      <div class="dashboard-header">
+        <h1 class="welcome-message">Bem-vinda, <span id="userName"></span>! 👗</h1>
+        <p>Seu closet está pronto para novas trocas incríveis.</p>
+        
+        <div class="user-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="totalTrocas">0</div>
+            <div class="stat-label">Trocas realizadas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="swapCoins">0</div>
+            <div class="stat-label">SwapCoins</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="reputacao">5.0</div>
+            <div class="stat-label">Reputação</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="pecasAtivas">0</div>
+            <div class="stat-label">Peças ativas</div>
           </div>
         </div>
+        
+        <button class="logout-btn" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i> Sair da conta
+        </button>
       </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-row">
-      <div>© 2026 SwapStyle. Todos os direitos reservados.</div>
-      <div>Moda circular • comunidade feminina • trocas mais inteligentes</div>
     </div>
-  </footer>
+  </div>
 
   <script>
+    // ============= LOCALSTORAGE (BANCO DE DADOS) =============
+    const DB = {
+      saveUser(user) {
+        const users = this.getUsers();
+        users.push(user);
+        localStorage.setItem('swapstyle_users', JSON.stringify(users));
+      },
+      
+      getUsers() {
+        return JSON.parse(localStorage.getItem('swapstyle_users') || '[]');
+      },
+      
+      findUser(email, senha) {
+        return this.getUsers().find(u => u.email === email && u.senha === senha);
+      },
+      
+      emailExists(email) {
+        return this.getUsers().some(u => u.email === email);
+      },
+      
+      usernameExists(username) {
+        return this.getUsers().some(u => u.username === username);
+      },
+      
+      setCurrentUser(user) {
+        localStorage.setItem('swapstyle_current_user', JSON.stringify(user));
+      },
+      
+      getCurrentUser() {
+        return JSON.parse(localStorage.getItem('swapstyle_current_user') || 'null');
+      },
+      
+      logout() {
+        localStorage.removeItem('swapstyle_current_user');
+      }
+    };
+
     // ============= NOTIFICATION SYSTEM =============
     function showNotification(message, type = 'success') {
       const notification = document.getElementById('notification');
@@ -1443,22 +1441,7 @@
       document.getElementById('cadastro').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // ============= SOCIAL LOGIN =============
-    function handleSocialLogin(provider) {
-      const providers = {
-        apple: 'Apple',
-        google: 'Google',
-        phone: 'Telefone'
-      };
-      
-      showNotification(`Login com ${providers[provider]} iniciado! Redirecionando...`, 'success');
-      
-      setTimeout(() => {
-        console.log(`Redirecionando para login com ${provider}`);
-        // window.location.href = `/auth/${provider}`;
-      }, 1500);
-    }
-
+    // ============= LOGIN FUNCTIONS =============
     function handleEmailLogin(event) {
       event.preventDefault();
       
@@ -1468,36 +1451,23 @@
       
       errorDiv.textContent = '';
       
-      if (!email || !senha) {
-        errorDiv.textContent = 'Por favor, preencha todos os campos.';
-        return;
-      }
+      const user = DB.findUser(email, senha);
       
-      showNotification('Login realizado com sucesso! Redirecionando...', 'success');
-      
-      setTimeout(() => {
+      if (user) {
+        DB.setCurrentUser(user);
+        showNotification(`Bem-vinda de volta, ${user.nome.split(' ')[0]}!`, 'success');
         closeLoginModal();
-        // window.location.href = '/app';
-      }, 1500);
+        showDashboard();
+      } else {
+        errorDiv.textContent = 'E-mail ou senha incorretos.';
+      }
     }
 
-    // ============= SOCIAL REGISTER =============
-    function handleSocialRegister(provider) {
-      const providers = {
-        apple: 'Apple',
-        google: 'Google',
-        phone: 'Telefone'
-      };
-      
-      showNotification(`Cadastro com ${providers[provider]} iniciado! Configurando sua conta...`, 'success');
-      
-      setTimeout(() => {
-        console.log(`Redirecionando para cadastro com ${provider}`);
-        // window.location.href = `/auth/${provider}/register`;
-      }, 1500);
+    function handleSocialLogin(provider) {
+      showNotification(`Login com ${provider} em desenvolvimento. Use e-mail por enquanto.`, 'error');
     }
 
-    // ============= REGISTER FORM =============
+    // ============= REGISTER FUNCTIONS =============
     async function handleRegister(event) {
       event.preventDefault();
       
@@ -1510,15 +1480,12 @@
       errorDiv.textContent = '';
       
       const nome = document.getElementById('cad-nome').value.trim();
-      const username = document.getElementById('cad-username').value.trim();
-      const email = document.getElementById('cad-email').value.trim();
-      const telefone = document.getElementById('cad-tel').value.trim();
-      const cep = document.getElementById('cad-cep').value.trim();
-      const cidade = document.getElementById('cad-cidade').value.trim();
-      const estado = document.getElementById('cad-estado').value.trim().toUpperCase();
+      const username = document.getElementById('cad-username').value.trim().toLowerCase();
+      const email = document.getElementById('cad-email').value.trim().toLowerCase();
       const senha = document.getElementById('cad-senha').value;
       const senha2 = document.getElementById('cad-senha2').value;
       
+      // Validações
       if (senha !== senha2) {
         errorDiv.textContent = 'As senhas não conferem.';
         btn.disabled = false;
@@ -1535,7 +1502,7 @@
       
       const usernameRegex = /^[a-zA-Z0-9._]+$/;
       if (!usernameRegex.test(username)) {
-        errorDiv.textContent = 'Nome de usuário deve conter apenas letras, números, "_" ou "."';
+        errorDiv.textContent = 'Usuário deve conter apenas letras, números, "_" ou "."';
         btn.disabled = false;
         btn.textContent = originalText;
         return;
@@ -1556,27 +1523,43 @@
         return;
       }
       
-      const body = {
+      // Verificar se email ou username já existe
+      if (DB.emailExists(email)) {
+        errorDiv.textContent = 'Este e-mail já está cadastrado.';
+        btn.disabled = false;
+        btn.textContent = originalText;
+        return;
+      }
+      
+      if (DB.usernameExists(username)) {
+        errorDiv.textContent = 'Este nome de usuário já está em uso.';
+        btn.disabled = false;
+        btn.textContent = originalText;
+        return;
+      }
+      
+      // Criar usuário
+      const user = {
         nome: nome.replace(/\s+/g, ' '),
         username: username,
         email: email,
-        telefone: telefone,
-        cep: cep,
-        cidade: cidade,
-        estado: estado,
-        senha: senha
+        senha: senha,
+        dataCadastro: new Date().toISOString(),
+        swapCoins: 50, // Bônus de boas-vindas
+        trocas: 0,
+        reputacao: 5.0
       };
       
       try {
-        console.log('Dados do cadastro:', body);
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        DB.saveUser(user);
+        DB.setCurrentUser(user);
         
-        showNotification('Conta criada com sucesso! Bem-vinda ao SwapStyle! 🎉', 'success');
+        showNotification('Conta criada com sucesso! Ganhe 50 SwapCoins de boas-vindas! 🎉', 'success');
         event.target.reset();
         
         setTimeout(() => {
-          console.log('Redirecionando para onboarding...');
-        }, 2000);
+          showDashboard();
+        }, 1500);
         
       } catch (e) {
         errorDiv.textContent = 'Erro ao criar conta. Tente novamente.';
@@ -1587,58 +1570,49 @@
       }
     }
 
-    // ============= MASCARAS =============
-    function mascaraTelefone(el) {
-      let v = el.value.replace(/\D/g, '').slice(0, 11);
-      if (v.length > 2) v = '(' + v.slice(0, 2) + ') ' + v.slice(2);
-      if (v.length > 10) v = v.slice(0, 10) + '-' + v.slice(10);
-      el.value = v;
+    function handleSocialRegister(provider) {
+      showNotification(`Cadastro com ${provider} em desenvolvimento. Use e-mail por enquanto.`, 'error');
     }
 
-    function mascaraCep(el) {
-      let v = el.value.replace(/\D/g, '').slice(0, 8);
-      if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5);
-      el.value = v;
+    // ============= DASHBOARD =============
+    function showDashboard() {
+      const user = DB.getCurrentUser();
+      
+      if (!user) {
+        showNotification('Faça login para continuar', 'error');
+        return;
+      }
+      
+      document.getElementById('landingPage').classList.add('hidden');
+      document.getElementById('dashboardPage').classList.remove('hidden');
+      
+      document.getElementById('userName').textContent = user.nome.split(' ')[0];
+      document.getElementById('totalTrocas').textContent = user.trocas || 0;
+      document.getElementById('swapCoins').textContent = user.swapCoins || 0;
+      document.getElementById('reputacao').textContent = user.reputacao || '5.0';
+      document.getElementById('pecasAtivas').textContent = Math.floor(Math.random() * 5) + 1;
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    async function buscarCep() {
-      const cepInput = document.getElementById('cad-cep');
-      const cep = cepInput.value.replace(/\D/g, '');
-      
-      if (cep.length !== 8) return;
-      
-      cepInput.style.backgroundColor = '#f9f9f9';
-      
-      try {
-        const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const d = await r.json();
-        
-        if (d.erro) {
-          showNotification('CEP não encontrado. Digite o endereço manualmente.', 'error');
-          cepInput.style.backgroundColor = '#fff';
-          return;
-        }
-        
-        document.getElementById('cad-cidade').value = d.localidade || '';
-        document.getElementById('cad-estado').value = d.uf || '';
-        
-        showNotification('Endereço preenchido automaticamente!', 'success');
-        cepInput.style.backgroundColor = '#fff';
-        
-      } catch (e) {
-        console.error('ViaCEP indisponível:', e);
-        showNotification('Serviço de CEP indisponível. Preencha manualmente.', 'error');
-        cepInput.style.backgroundColor = '#fff';
+    function logout() {
+      DB.logout();
+      document.getElementById('dashboardPage').classList.add('hidden');
+      document.getElementById('landingPage').classList.remove('hidden');
+      showNotification('Você saiu da sua conta. Até logo! 👋', 'success');
+    }
+
+    // ============= CHECK LOGIN ON LOAD =============
+    function checkLoggedIn() {
+      const user = DB.getCurrentUser();
+      if (user) {
+        showDashboard();
       }
     }
 
     // ============= UTILITIES =============
     function showTerms() {
-      showNotification('Termos de uso serão exibidos em breve.', 'success');
-    }
-
-    function showPrivacy() {
-      showNotification('Política de privacidade será exibida em breve.', 'success');
+      showNotification('Termos de uso: Ao usar SwapStyle, você concorda em trocar roupas de forma respeitosa.', 'success');
     }
 
     // ============= KEYBOARD SHORTCUTS =============
@@ -1668,8 +1642,11 @@
       });
     });
 
-    console.log('✨ SwapStyle - Plataforma de troca de roupas feminina');
-    console.log('💫 Todos os sistemas operacionais!');
+    // ============= INITIALIZATION =============
+    checkLoggedIn();
+    
+    console.log('✨ SwapStyle - Sistema de cadastro 100% funcional!');
+    console.log('💾 Dados salvos no seu navegador (localStorage)');
   </script>
 </body>
 </html>
