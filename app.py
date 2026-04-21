@@ -2,11 +2,6 @@
 
 # -*- coding: utf-8 -*-
 
-“””
-SwapStyle Web — Flask Backend
-Arquivo principal: app.py
-“””
-
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import sqlite3, hashlib, uuid, os
 from datetime import datetime
