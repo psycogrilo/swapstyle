@@ -649,7 +649,7 @@ async function openMatch(mid) {
       <p>${minhaPeca} ⇄ ${pelaPeca}</p>
     </div>
     <div class="card">
-      <span class="status ${m.status}">${{pendente:'⏳ Pendente',andamento:'📦 Em andamento',concluido:'✅ Concluído',cancelado:'❌ Cancelado'}[m.status]}</span>
+      <span class="status ${m.status}">${({'pendente':'⏳ Pendente','andamento':'📦 Em andamento','concluido':'✅ Concluído','cancelado':'❌ Cancelado'})[m.status]}</span>
       ${Math.abs(diff)>0.5?`<div style="font-size:.85rem;color:var(--gold);margin-top:.5rem">💰 Diferença de R$ ${Math.abs(diff).toFixed(2)} em SwapCoins</div>`:''}
       ${m.rastreio_a?`<div style="font-size:.8rem;color:var(--muted);margin-top:.4rem">Rastreio (A): ${m.rastreio_a}</div>`:''}
       ${m.rastreio_b?`<div style="font-size:.8rem;color:var(--muted)">Rastreio (B): ${m.rastreio_b}</div>`:''}
