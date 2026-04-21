@@ -476,7 +476,10 @@ def api_buscar():
     return jsonify([dict(x) for x in r])
 
 # ── MAIN ─────────────────────────────────────────────────────────
-if __name__ == "__main__":
+# Inicializa banco ao importar (necessário para Gunicorn)
+with app.app_context():
+    init_db()
+if __name__ == "__main__": 
     init_db()
     port = int(os.environ.get("PORT", 5000))
     debug = os.environ.get("FLASK_DEBUG", "true").lower() == "true"
