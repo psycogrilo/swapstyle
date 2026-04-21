@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwapStyle — Troque looks, faça conexões</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #F2A0B0;
+    --deep-rose: #D4607A;
+    --blush: #FDE8ED;
+    --plum: #3D1A2E;
+    --cream: #FDF6F0;
+    --gold: #C9985A;
+    --text: #2A1520;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--plum);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(242,160,176,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(212,96,122,0.1) 0%, transparent 50%);
+  }
+  .petals {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .petal {
+    position: absolute;
+    width: 8px; height: 8px;
+    background: var(--rose);
+    border-radius: 50% 0 50% 0;
+    opacity: 0.15;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%  { transform: translateY(-20px) rotate(0deg);   opacity:0.15; }
+    100%{ transform: translateY(110vh) rotate(360deg); opacity:0; }
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -1px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .logo span { color: var(--rose); font-style: italic; }
+  .tagline {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    margin: 1rem 0 3rem;
+    letter-spacing: 0.5px;
+    position: relative; z-index: 1;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .btn-primary {
+    background: var(--rose);
+    color: var(--plum);
+    border: none; border-radius: 50px;
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none; display: inline-block;
+    box-shadow: 0 4px 20px rgba(242,160,176,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(242,160,176,0.5); }
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 400;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--rose); color: var(--rose); }
+  .scroll-hint {
+    position: absolute; bottom: 2rem;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem; letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+    z-index: 1;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 6rem 2rem;
+    background: var(--cream);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    text-align: center;
+    color: var(--plum);
+    margin-bottom: 3.5rem;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .feature-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 1px solid rgba(212,96,122,0.1);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(61,26,46,0.1); }
+  .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .feature-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--plum); margin-bottom: 0.75rem;
+  }
+  .feature-card p { color: #7A5A68; font-size: 0.95rem; line-height: 1.6; }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    background: var(--plum);
+    padding: 6rem 2rem;
+    color: #fff;
+  }
+  .how .section-title { color: #fff; }
+  .steps {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; gap: 0;
+    max-width: 900px; margin: 0 auto;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 40px; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  }
+  .step {
+    flex: 1; min-width: 160px; max-width: 200px;
+    text-align: center; padding: 0 1rem;
+    position: relative; z-index: 1;
+  }
+  .step-num {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--rose);
+    color: var(--plum);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 0 0 8px rgba(242,160,176,0.15);
+  }
+  .step h4 { font-weight: 500; margin-bottom: 0.5rem; }
+  .step p  { color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.5; }
+
+  /* ── CTA ── */
+  .cta {
+    background: linear-gradient(135deg, var(--blush) 0%, #fff 100%);
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+  .cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--plum); margin-bottom: 1rem;
+  }
+  .cta p { color: #7A5A68; margin-bottom: 2.5rem; font-size: 1.05rem; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(61,26,46,0.7);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    display: none; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2.5rem;
+    width: 100%; max-width: 440px;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from{transform:translateY(30px);opacity:0} to{transform:translateY(0);opacity:1} }
+  .modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; color: var(--plum);
+    margin-bottom: 0.25rem;
+  }
+  .modal-sub { color: #9A7A88; font-size: 0.9rem; margin-bottom: 2rem; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--plum); margin-bottom: 0.4rem; }
+  .form-group input {
+    width: 100%; padding: 0.85rem 1rem;
+    border: 1.5px solid #EDD5DC;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; color: var(--text);
+    background: #FFFAFC;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus { border-color: var(--rose); background: #fff; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .btn-full {
+    width: 100%; padding: 1rem;
+    background: var(--deep-rose);
+    color: #fff; border: none; border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .btn-full:hover { background: var(--plum); }
+  .modal-switch {
+    text-align: center; margin-top: 1.25rem;
+    font-size: 0.9rem; color: #9A7A88;
+  }
+  .modal-switch a { color: var(--deep-rose); cursor: pointer; text-decoration: none; font-weight: 500; }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: none; border: none; font-size: 1.5rem;
+    cursor: pointer; color: #9A7A88;
+  }
+  .error-msg { color: #D4607A; font-size: 0.85rem; margin-top: 0.75rem; text-align: center; }
+
+  @media(max-width:600px){
+    .steps::before { display: none; }
+    .step { max-width: 100%; margin-bottom: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="petals" id="petals"></div>
+  <div class="logo">Swap<span>Style</span></div>
+  <p class="tagline">Troque looks, faça conexões femininas ✦</p>
+  <div class="hero-btns">
+    <a class="btn-primary" onclick="openModal('cadastro')">Começar grátis</a>
+    <a class="btn-outline" onclick="openModal('login')">Já tenho conta</a>
+  </div>
+  <div class="scroll-hint">↓ saiba mais</div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <h2 class="section-title">Por que o SwapStyle?</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">💫</div>
+      <h3>Match de peças</h3>
+      <p>Dê swipe nas peças que você quer. Quando o interesse é mútuo, é um match! Simples como o Tinder.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔐</div>
+      <h3>Trocas seguras</h3>
+      <p>Verificação de identidade, escrow de créditos e rastreio obrigatório. Você só perde os créditos quando confirmar o recebimento.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⭐</div>
+      <h3>Reputação real</h3>
+      <p>Sistema de avaliação como o Airbnb. Quanto mais você troca bem, mais visível e confiável você se torna.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>SwapCoins</h3>
+      <p>Diferença de valor? Cubra com SwapCoins. Troca peças de valores diferentes sem perder nada.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">♻️</div>
+      <h3>Moda sustentável</h3>
+      <p>Dê nova vida às roupas que estão paradas no armário. Bom para você, para o bolso e para o planeta.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌸</div>
+      <h3>Comunidade feminina</h3>
+      <p>Um espaço só nosso. Roupas, acessórios, bolsas, sapatos — tudo do universo feminino.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <h2 class="section-title">Como funciona</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Cadastre sua peça</h4>
+      <p>Foto, tamanho, condição e valor estimado</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Explore e dê swipe</h4>
+      <p>Curta as peças que você quer trocar</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>É um match!</h4>
+      <p>Interesse mútuo = match automático</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Envie e confirme</h4>
+      <p>Rastreio obrigatório, confirmação das duas partes</p>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <h4>Avalie!</h4>
+      <p>Construa sua reputação a cada troca</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Pronta para trocar?</h2>
+  <p>Plano Free: 3 trocas por mês, sem cartão de crédito.</p>
+  <button class="btn-primary" onclick="openModal('cadastro')">Criar minha conta grátis 🌸</button>
+</section>
+
+<!-- MODAL LOGIN -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal('login')">×</button>
+    <h2>Bem-vinda de volta</h2>
+    <p class="modal-sub">Entre na sua conta SwapStyle</p>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="login-email" placeholder="seu@email.com">
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" id="login-senha" placeholder="••••••">
+    </div>
+    <div id="login-error" class="error-msg"></div>
+    <button class="btn-full" onclick="doLogin()">Entrar</button>
+    <div class="modal-switch">
+      Não tem conta? <a onclick="switchModal('login','cadastro')">Criar agora</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CADASTRO -->
+<div class="modal-overlay" id="modal-cadastro">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal('cadastro')">×</button>
+    <h2>Criar conta</h2>
+    <p class="modal-sub">Grátis, sem cartão de crédito</p>
+    <div class="form-group">
+      <label>Nome completo</label>
+      <input type="text" id="cad-nome" placeholder="Seu nome">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>@username</label>
+        <input type="text" id="cad-username" placeholder="seunome">
+      </div>
+      <div class="form-group">
+        <label>Telefone</label>
+        <input type="tel" id="cad-tel" placeholder="(11) 99999-9999">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="cad-email" placeholder="seu@email.com">
+    </div>
+    <div class="form-group">
+      <label>CPF</label>
+      <input type="text" id="cad-cpf" placeholder="000.000.000-00">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Cidade</label>
+        <input type="text" id="cad-cidade" placeholder="São Paulo">
+      </div>
+      <div class="form-group">
+        <label>Estado (UF)</label>
+        <input type="text" id="cad-estado" placeholder="SP" maxlength="2">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="cad-senha" placeholder="mínimo 6 chars">
+      </div>
+      <div class="form-group">
+        <label>Confirmar</label>
+        <input type="password" id="cad-senha2" placeholder="repita a senha">
+      </div>
+    </div>
+    <div id="cad-error" class="error-msg"></div>
+    <button class="btn-full" onclick="doCadastro()">Criar minha conta 🌸</button>
+    <div class="modal-switch">
+      Já tem conta? <a onclick="switchModal('cadastro','login')">Entrar</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Petals
+const petalEl = document.getElementById('petals');
+for(let i=0;i<18;i++){
+  const p = document.createElement('div');
+  p.className='petal';
+  p.style.left = Math.random()*100+'%';
+  p.style.top  = -Math.random()*100+'px';
+  p.style.animationDuration = (6+Math.random()*10)+'s';
+  p.style.animationDelay   = (Math.random()*8)+'s';
+  p.style.width = p.style.height = (4+Math.random()*8)+'px';
+  petalEl.appendChild(p);
+}
+
+function openModal(name){ document.getElementById('modal-'+name).classList.add('active'); }
+function closeModal(name){ document.getElementById('modal-'+name).classList.remove('active'); }
+function switchModal(a,b){ closeModal(a); openModal(b); }
+
+document.querySelectorAll('.modal-overlay').forEach(el=>{
+  el.addEventListener('click', e=>{ if(e.target===el) el.classList.remove('active'); });
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('active')); });
+
+async function doLogin(){
+  const email = document.getElementById('login-email').value.trim();
+  const senha = document.getElementById('login-senha').value;
+  document.getElementById('login-error').textContent='';
+  const r = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,senha})});
+  const d = await r.json();
+  if(r.ok){ window.location='/app'; }
+  else{ document.getElementById('login-error').textContent = d.error; }
+}
+
+async function doCadastro(){
+  const senha  = document.getElementById('cad-senha').value;
+  const senha2 = document.getElementById('cad-senha2').value;
+  document.getElementById('cad-error').textContent='';
+  if(senha!==senha2){ document.getElementById('cad-error').textContent='As senhas não conferem'; return; }
+  const body={
+    nome:     document.getElementById('cad-nome').value.trim(),
+    username: document.getElementById('cad-username').value.trim(),
+    email:    document.getElementById('cad-email').value.trim(),
+    telefone: document.getElementById('cad-tel').value.trim(),
+    cpf:      document.getElementById('cad-cpf').value.replace(/\D/g,''),
+    cidade:   document.getElementById('cad-cidade').value.trim(),
+    estado:   document.getElementById('cad-estado').value.trim(),
+    senha
+  };
+  const r = await fetch('/api/cadastro',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const d = await r.json();
+  if(r.ok){ window.location='/app'; }
+  else{ document.getElementById('cad-error').textContent = d.error; }
+}
+
+// Enter key support
+document.getElementById('login-senha').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
+</script>
+</body>
+</html>
